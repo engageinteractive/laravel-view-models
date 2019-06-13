@@ -1,12 +1,10 @@
 <?php
 
-namespace Tests\Unit;
-
-use Mockery as m;
+namespace Tests\Mapper;
 
 use EngageInteractive\LaravelViewModels\Mapper;
-
 use Tests\TestCase;
+use Mockery as m;
 
 class MapperTest extends TestCase
 {

@@ -15,7 +15,9 @@ A straight forward pattern for using view models instead of database model in yo
 composer require engageinteractive/laravel-view-models
 ```
 
-Then, create a mapper that can build view models for your Eloquent model:
+## Mappers
+
+Create a mapper that can build view models for your Eloquent model:
 
 ```php
 namespace App\Domain\Posts;
@@ -39,7 +41,7 @@ class PostShowMapper extends Mapper
 }
 ```
 
-Then finally, ask for an instance of the Mapper in your controller via the container:
+Ask for an instance of the Mapper in your controller via the container:
 
 ```php
 namespace App\Domain\Posts;
@@ -64,6 +66,80 @@ class PostController extends Controller
         ]),
     }
 }
+```
+
+## View models
+
+Create a view model, to build data to pass into your view:
+```php
+namespace App\Domain\Posts;
+
+use EngageInteractive\LaravelViewModels\ViewModel;
+use Illuminate\Support\Str;
+
+class PostViewModel extends ViewModel
+{
+    protected $post;
+
+    /**
+     * Intialise the View ViewModel.
+     *
+     * @param \App\Domain\Posts\Post
+     * @return void
+     */
+    public function __construct(Post $post): void
+    {
+        $this->post = $post;
+    }
+    
+    /**
+     * Returns the post title in title-case.
+     *
+     * @return string
+     */
+    public function postTitle(): string
+    {
+        if (!isset($this->post->title)) {
+            return 'Untitled';
+        }
+
+        return Str::title($this->post->title);
+    }
+}
+```
+
+Pass the ViewModel array into the view:
+```php
+namespace App\Domain\Posts;
+
+use App\Domain\Posts\Post;
+use App\Domain\Posts\PostViewModel;
+use App\Http\Controllers\Controller;
+
+class PostController extends Controller
+{
+    /**
+     * Show a Post.
+     *
+     * @param \App\Domain\Posts\Post
+     * @return \Illuminate\Views\View
+     */
+    public function show(Post $post)
+    {
+        $model = new PostViewModel($post);
+
+        return view('post.show', $model->array()),
+    }
+}
+```
+
+Below is an example of the data passed into the view:
+```
+[
+    'model' => [
+        'post_title' => 'This Is The Title',
+    ],
+]
 ```
 
 ## Laravel Compatibility

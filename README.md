@@ -142,6 +142,103 @@ Below is an example of the data passed into the view:
 ]
 ```
 
+## Combining View models and Mappers
+
+First, create a mapper for posts.
+```php
+namespace App\Domain\Posts;
+
+use EngageInteractive\LaravelViewModels\Mapper;
+
+use App\Domain\Posts\Post;
+
+class PostsMapper extends Mapper
+{
+    /**
+     * Map a Post to a basic PHP array.
+     *
+     * @param \App\Domain\Posts\Post
+     * @return array
+     */
+    public function map(Post $post)
+    {
+        return $post->only('title', 'author_name');
+    }
+}
+```
+
+Create a ViewModel, and call the mapper.
+```php
+namespace App\Domain\Posts;
+
+use EngageInteractive\LaravelViewModels\ViewModel;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
+
+class PostArchiveViewModel extends ViewModel
+{
+    protected $posts;
+
+    /**
+     * Initialise the View model.
+     *
+     * @param \Illuminate\Database\Eloquent\Collection
+     * @return void
+     */
+    public function __construct(Collection $posts): void
+    {
+        $this->posts = $posts;
+    }
+    
+    /**
+     * Returns an array of posts.
+     *
+     * @return string
+     */
+    public function posts(): array
+    {
+        return (new PostsMapper)->all($this->posts);
+    }
+
+    /**
+     * Returns the application home URI.
+     *
+     * @return string
+     */
+    public function HomeUri(): string
+    {
+        return route('home');
+    }
+}
+```
+
+Pass the view model into the view, with the posts mapped into the required format.
+```php
+namespace App\Domain\Posts;
+
+use App\Domain\Posts\Post;
+use App\Domain\Posts\PostArchiveViewModel;
+use App\Http\Controllers\Controller;
+
+class PostArchiveController extends Controller
+{
+    /**
+     * Show a Post.
+     *
+     * @return \Illuminate\Views\View
+     */
+    public function show()
+    {
+        $posts = Post::all();
+        $model = new PostArchiveViewModel($posts);
+
+        return view('post-archive.show', $model->array()),
+    }
+}
+```
+
+
+
 ## Laravel Compatibility
 
 Works on Laravel 5.5+.

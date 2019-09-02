@@ -1,10 +1,10 @@
 {
     "name": "engageinteractive/laravel-view-models",
     "description": "Use view models instead of database model in your blade files and JSON responses.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "type": "library",
     "require": {
-        "laravel/framework": ">=5.5 <6"
+        "laravel/framework": ">=5.5"
     },
     "require-dev": {
         "orchestra/testbench": "^3.8",

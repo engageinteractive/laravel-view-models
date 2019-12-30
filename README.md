@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/engageinteractive/laravel-view-models"><img src="https://poser.pugx.org/engageinteractive/laravel-view-models/license.svg" alt="License"></a>
 </p>
 
-A straight forward pattern for using view models instead of database model in your blade files and JSON responses.
+A straight forward pattern for using mappers/view models instead of database model in your blade files and JSON responses.
 
 ## Installation
 

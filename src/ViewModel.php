@@ -28,11 +28,24 @@ abstract class ViewModel
      */
     public function array()
     {
-        $this->buildModelData();
+        $data = $this->data();
 
         return [
-            $this->key => $this->model
+            $this->key => $data,
         ];
+    }
+
+    /**
+     * Builds the model data and returns a view model
+     * array without the model key.
+     *
+     * @return array
+     */
+    public function data()
+    {
+        $this->buildModelData();
+
+        return $this->model;
     }
 
     /**

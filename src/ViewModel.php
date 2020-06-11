@@ -28,7 +28,7 @@ abstract class ViewModel
      */
     public function array()
     {
-        $data = $this->data();
+        $data = $this->getData();
 
         return [
             $this->key => $data,
@@ -41,7 +41,7 @@ abstract class ViewModel
      *
      * @return array
      */
-    public function data()
+    public function getData()
     {
         $this->buildModelData();
 
@@ -113,6 +113,6 @@ abstract class ViewModel
             return true;
         }
 
-        return in_array($methodName, ['array', 'data']);
+        return in_array($methodName, ['array', 'getGata']);
     }
 }

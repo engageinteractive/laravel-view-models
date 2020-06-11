@@ -113,6 +113,6 @@ abstract class ViewModel
             return true;
         }
 
-        return in_array($methodName, ['array']);
+        return in_array($methodName, ['array', 'data']);
     }
 }

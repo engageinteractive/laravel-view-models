@@ -11,6 +11,9 @@
         "phpunit/phpunit": "^7.5"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "EngageInteractive\\LaravelViewModels\\": "src/"
         }
@@ -30,5 +33,12 @@
             "name": "Matthew Wilkinson",
             "email": "matthew@engageinteractive.co.uk"
         }
-    ]
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EngageInteractive\\LaravelViewModels\\ViewModelsServiceProvider"
+            ]
+        }
+    }
 }

@@ -124,6 +124,6 @@ abstract class ViewModel implements Arrayable
             return true;
         }
 
-        return in_array($methodName, ['array', 'getData']);
+        return in_array($methodName, ['array', 'toArray', 'getData']);
     }
 }

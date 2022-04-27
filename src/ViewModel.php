@@ -2,12 +2,13 @@
 
 namespace EngageInteractive\LaravelViewModels;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
 use Closure;
 
-abstract class ViewModel
+abstract class ViewModel implements Arrayable
 {
     const DEFAULT_KEY = 'model';
 
@@ -33,6 +34,16 @@ abstract class ViewModel
         return [
             $this->key => $data,
         ];
+    }
+
+    /**
+     * Builds the model data and returns a view model array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->array();
     }
 
     /**

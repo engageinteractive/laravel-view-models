@@ -3,7 +3,7 @@
     "description": "Use view models instead of database model in your blade files and JSON responses.",
     "type": "library",
     "require": {
-        "laravel/framework": "^8.0|^9.0|^10.0"
+        "laravel/framework": "^8.0|^9.0|^10.0|^11.0"
     },
     "require-dev": {
         "orchestra/testbench": "^7",
